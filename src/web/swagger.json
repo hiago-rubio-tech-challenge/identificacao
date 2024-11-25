@@ -16,65 +16,6 @@
         "required": ["name", "email", "cpf"],
         "type": "object"
       },
-      "CheckoutBody": {
-        "properties": {
-          "client": {
-            "$ref": "#/components/schemas/Client"
-          },
-          "products": {
-            "items": {
-              "$ref": "#/components/schemas/Product"
-            },
-            "type": "array"
-          },
-          "totalItens": {
-            "type": "number"
-          },
-          "totalValue": {
-            "type": "number"
-          }
-        },
-        "required": ["client", "products", "totalValue", "totalItens"],
-        "type": "object"
-      },
-      "Client": {
-        "properties": {
-          "id": {
-            "example": "123",
-            "type": "string"
-          },
-          "name": {
-            "example": "John Doe",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "CreateProductBody": {
-        "properties": {
-          "category": {
-            "enum": ["Lanches", "Bebidas", "Acompanhamentos", "Sobremesas"],
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          }
-        },
-        "required": ["name", "category", "price"],
-        "type": "object"
-      },
-      "DeleteProductBody": {
-        "properties": {
-          "id": {
-            "type": "string"
-          }
-        },
-        "required": ["id"],
-        "type": "object"
-      },
       "IdentificacaoBody": {
         "properties": {
           "cpf": {
@@ -82,83 +23,6 @@
           }
         },
         "required": ["cpf"],
-        "type": "object"
-      },
-      "Pedido": {
-        "properties": {
-          "client": {
-            "$ref": "#/components/schemas/Client"
-          },
-          "id": {
-            "example": "60d21b4667d0d8992e610c85",
-            "type": "string"
-          },
-          "products": {
-            "items": {
-              "$ref": "#/components/schemas/Product"
-            },
-            "type": "array"
-          },
-          "status": {
-            "enum": [
-              "RECEBIDO",
-              "EM_PREPARO",
-              "PRONTO",
-              "FINALIZADO",
-              "CANCELADO"
-            ],
-            "example": "RECEBIDO",
-            "type": "string"
-          },
-          "totalItens": {
-            "example": 5,
-            "type": "number"
-          },
-          "totalValue": {
-            "example": 100.5,
-            "type": "number"
-          }
-        },
-        "type": "object"
-      },
-      "Product": {
-        "properties": {
-          "category": {
-            "example": "Category Name",
-            "type": "string"
-          },
-          "id": {
-            "example": "abc123",
-            "type": "string"
-          },
-          "name": {
-            "example": "Product Name",
-            "type": "string"
-          },
-          "price": {
-            "example": 25.5,
-            "type": "number"
-          }
-        },
-        "type": "object"
-      },
-      "UpdateProductBody": {
-        "properties": {
-          "category": {
-            "enum": ["Lanches", "Bebidas", "Acompanhamentos", "Sobremesas"],
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          }
-        },
-        "required": ["id", "name", "category", "price"],
         "type": "object"
       }
     }
@@ -169,247 +33,41 @@
   },
   "openapi": "3.1.0",
   "paths": {
-    "/admin/products": {
-      "delete": {
-        "description": "Delete a product from the inventory.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteProductBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              }
-            },
-            "description": "Product deleted successfully"
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Server error"
-          }
-        },
-        "summary": "Delete a product",
-        "tags": ["Products"]
-      },
-      "patch": {
-        "description": "Update details of an existing product.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateProductBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              }
-            },
-            "description": "Product updated successfully"
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Server error"
-          }
-        },
-        "summary": "Update an existing product",
-        "tags": ["Products"]
-      },
-      "post": {
-        "description": "Create a new product in the inventory.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateProductBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Product"
-                }
-              }
-            },
-            "description": "Product created successfully"
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Server error"
-          }
-        },
-        "summary": "Create a new product",
-        "tags": ["Products"]
-      }
-    },
-    "/admin/products/{category}": {
-      "get": {
-        "description": "Retrieve products by category.",
-        "parameters": [
-          {
-            "description": "Category of the products",
-            "in": "path",
-            "name": "category",
-            "required": true,
-            "schema": {
-              "enum": ["Lanches", "Bebidas", "Acompanhamentos", "Sobremesas"],
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Product"
-                  },
-                  "type": "array"
-                }
-              }
-            },
-            "description": "A list of products"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "example": "Categoria inválida",
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Invalid category"
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Server error"
-          }
-        },
-        "summary": "Get products by category",
-        "tags": ["Products"]
-      }
-    },
     "/cadastro": {
       "post": {
         "description": "Realiza o cadastro de um novo usuário.",
         "requestBody": {
           "content": {
             "application/json": {
+              "required": ["name", "email", "cpf"],
               "schema": {
-                "properties": {
-                  "cpf": {
-                    "example": "123.456.789-10",
-                    "type": "string"
-                  },
-                  "email": {
-                    "example": "joao.silva@example.com",
-                    "type": "string"
-                  },
-                  "name": {
-                    "example": "João da Silva",
-                    "type": "string"
-                  }
-                },
-                "required": ["name", "email", "cpf"],
-                "type": "object"
-              }
+                "$ref": "#/components/schemas/CadastroBody"
+              },
+              "type": "object"
             }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "text/plain": {
-                "example": "Cadastro realizado com sucesso."
-              }
-            },
-            "description": "Cadastro realizado com sucesso."
-          },
-          "500": {
-            "content": {
-              "text/plain": {
-                "example": "Não foi possível realizar cadastro. [Detalhes do erro]"
-              }
-            },
-            "description": "Não foi possível realizar cadastro."
           }
         },
+        "required": true,
         "summary": "Cadastro de usuário",
         "tags": ["Identificação"]
+      },
+      "responses": {
+        "200": {
+          "content": {
+            "text/plain": {
+              "example": "Cadastro realizado com sucesso."
+            }
+          },
+          "description": "Cadastro realizado com sucesso."
+        },
+        "500": {
+          "content": {
+            "text/plain": {
+              "example": "Não foi possível realizar cadastro. [Detalhes do erro]"
+            }
+          },
+          "description": "Não foi possível realizar cadastro."
+        }
       }
     },
     "/identificacao": {
@@ -419,14 +77,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "properties": {
-                  "cpf": {
-                    "example": "123.456.789-10",
-                    "type": "string"
-                  }
-                },
-                "required": ["cpf"],
-                "type": "object"
+                "$ref": "#/components/schemas/IdentificacaoBody"
               }
             }
           },
@@ -457,123 +108,12 @@
         "summary": "Identificação de usuário",
         "tags": ["Identificação"]
       }
-    },
-    "/pedido": {
-      "get": {
-        "description": "List pedidos based on status.",
-        "parameters": [
-          {
-            "description": "Status of the pedido",
-            "in": "header",
-            "name": "pedido_status",
-            "required": false,
-            "schema": {
-              "enum": [
-                "RECEBIDO",
-                "EM_PREPARO",
-                "PRONTO",
-                "FINALIZADO",
-                "CANCELADO"
-              ],
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Pedido"
-                  },
-                  "type": "array"
-                }
-              }
-            },
-            "description": "A list of pedidos"
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Server error"
-          }
-        },
-        "summary": "List pedidos",
-        "tags": ["Pedido"]
-      }
-    },
-    "/pedido/checkout": {
-      "post": {
-        "description": "Create a new pedido with checkout details.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CheckoutBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pedido"
-                }
-              }
-            },
-            "description": "Pedido created successfully"
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Server error"
-          }
-        },
-        "summary": "Create a new pedido",
-        "tags": ["Pedido"]
-      }
     }
   },
   "tags": [
     {
       "description": "Api de identificação de usuário",
       "name": "Identificação"
-    },
-    {
-      "description": "Endpoints relacionados aos produtos",
-      "name": "Products"
-    },
-    {
-      "description": "Operations related to pedidos",
-      "name": "Pedido"
-    },
-    {
-      "description": "Operations related to pedidos",
-      "name": "Pedido"
     }
   ]
 }

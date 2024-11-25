@@ -4,6 +4,7 @@ import { ClienteRepository } from "../gateways/ClienteRepository";
 import { ICreateCliente } from "../interfaces";
 import { IdentificacaoUseCase } from "../usecases/IdentificacaoUseCase";
 import { AwsLambdaService } from "../services/AwsLambdaService";
+import { throws } from "assert";
 
 export class ClienteController {
   private identificacaoUseCase: IdentificacaoUseCase;
@@ -33,6 +34,12 @@ export class ClienteController {
 
   async identificacao(req: Request, res: Response): Promise<Response> {
     try {
+      if (!this.identificacaoUseCase.validateIdentificacaoSchema(req.body)) {
+        return res.status(400).json({
+          message: "Não foi possível consultar o cpf. Error: Dados inválidos.",
+        });
+      }
+
       const cliente = await this.identificacaoUseCase.identificacao(
         req.body.cpf
       );
@@ -49,6 +56,13 @@ export class ClienteController {
 
   async login(req: Request, res: Response): Promise<Response> {
     try {
+      if (!this.identificacaoUseCase.validateCadastroSchema(req.body)) {
+        return res.status(400).json({
+          message:
+            "Não foi possível realizar cadastro. Error: Dados inválidos.",
+        });
+      }
+
       const credentials = await this.identificacaoUseCase.loginCliente(
         req.body.username,
         req.body.password

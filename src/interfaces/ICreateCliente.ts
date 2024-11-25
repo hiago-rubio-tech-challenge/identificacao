@@ -4,3 +4,7 @@ export interface ICreateCliente {
   email: string;
   password: string;
 }
+
+export interface IIdentificacao {
+  cpf: string;
+}

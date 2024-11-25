@@ -1,7 +1,14 @@
 import { Cliente } from "../entitites";
-import { ClienteRepository } from "../gateways/ClienteRepository";
-import { ICreateCliente } from "../interfaces";
-import { AwsLambdaService } from "../services/AwsLambdaService";
+import {
+  ClienteRepository,
+  IClienteRepository,
+} from "../gateways/ClienteRepository";
+import { ICreateCliente, IIdentificacao } from "../interfaces";
+import {
+  AwsLambdaService,
+  IAwsLambdaService,
+} from "../services/AwsLambdaService";
+import { CadastroSChema, IdentificacaoSchema } from "../web/schemas";
 
 export interface IIdentificacaoUseCase {
   createCliente(cadastro: ICreateCliente): Promise<Cliente | null>;
@@ -11,8 +18,8 @@ export interface IIdentificacaoUseCase {
 
 export class IdentificacaoUseCase implements IIdentificacaoUseCase {
   constructor(
-    private clienteRepository: ClienteRepository,
-    private awsLambdaService: AwsLambdaService
+    private clienteRepository: IClienteRepository,
+    private awsLambdaService: IAwsLambdaService
   ) {}
   async loginCliente(
     username: string,
@@ -43,5 +50,15 @@ export class IdentificacaoUseCase implements IIdentificacaoUseCase {
     }
 
     return cliente;
+  }
+
+  validateCadastroSchema(cadastro: ICreateCliente): boolean {
+    const { error } = CadastroSChema.validate(cadastro);
+    return error ? false : true;
+  }
+
+  validateIdentificacaoSchema(identificacao: IIdentificacao): boolean {
+    const { error } = IdentificacaoSchema.validate(identificacao);
+    return error ? false : true;
   }
 }
