@@ -1,0 +1,7 @@
+export enum PedidosStatus {
+  RECEBIDO = "RECEBIDO",
+  EM_PREPARO = "EM_PREPARO",
+  PRONTO = "PRONTO",
+  FINALIZADO = "FINALIZADO",
+  CANCELADO = "CANCELADO",
+}

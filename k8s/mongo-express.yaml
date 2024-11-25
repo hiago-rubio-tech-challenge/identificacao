@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-express
+  namespace: tech-challenge-namespace
+spec:
+  selector:
+    matchLabels:
+      app: mongo-express
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      containers:
+        - name: mongo-express
+          image: mongo-express:latest
+          ports:
+            - containerPort: 8081
+          env:
+            - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+              value: root
+            - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+              value: example
+            - name: ME_CONFIG_MONGODB_URL
+              value: mongodb://mongodb:27017/
+            - name: ME_CONFIG_BASICAUTH
+              value: "false"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express
+  namespace: tech-challenge-namespace
+spec:
+  type: LoadBalancer
+  selector:
+    app: mongo-express
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
