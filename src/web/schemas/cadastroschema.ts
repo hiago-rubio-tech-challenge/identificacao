@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import Joi from "joi";
-import { CPF } from "../../entitites";
+import { CPF } from "../../entities";
 
 export const CadastroSChema = Joi.object({
   name: Joi.string().required(),

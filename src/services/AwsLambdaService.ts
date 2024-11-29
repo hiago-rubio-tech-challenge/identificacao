@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LoginCliente, RegisterCliente } from "../entitites";
+import { LoginCliente, RegisterCliente } from "../entities";
 import { ICreateCliente } from "../interfaces";
 
 export interface IAwsLambdaService {

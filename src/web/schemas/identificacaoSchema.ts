@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { CPF } from "../../entitites";
+import { CPF } from "../../entities";
 import { cpf as cpfValidator } from "cpf-cnpj-validator";
 
 export interface IdentificacaoSchema {

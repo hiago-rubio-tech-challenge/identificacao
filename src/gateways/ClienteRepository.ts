@@ -1,5 +1,5 @@
 import { Db } from "mongodb";
-import { Cliente } from "../entitites";
+import { Cliente } from "../entities";
 import { COLLECTION_NAMES_ENUM } from "../enums";
 import { ICreateCliente } from "../interfaces";
 
