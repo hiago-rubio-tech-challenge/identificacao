@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Run Tests
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -27,6 +27,7 @@ jobs:
         run: npm build
 
   test:
+    name: Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -45,6 +46,7 @@ jobs:
         run: npm test
 
   coverage:
+    name: Coverage
     runs-on: ubuntu-latest
 
     steps:
