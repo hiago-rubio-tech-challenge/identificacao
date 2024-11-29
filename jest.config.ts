@@ -16,6 +16,14 @@ const config: Config = {
     "^@src/(.*)$": "<rootDir>/src/$1",
   },
   setupFilesAfterEnv: ["<rootDir>/tests/setup/jest-setup.ts"],
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: -10,
+    },
+  },
 };
 
 export default config;
