@@ -35,6 +35,6 @@ RUN npm install --omit=dev
 
 RUN echo "starting the app"
 
-EXPOSE 3000
+EXPOSE 3001
 
 CMD ["node", "dist/app.js"]
