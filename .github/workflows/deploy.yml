@@ -43,6 +43,6 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          docker build --build-arg MONGO_URL="${{ secrets.MONGO_URL }}" --build-arg AWS_LAMBDA_URL="${{ secrets.AWS_LAMBDA_URL }}" -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build --build-arg MONGO_URL="${{ secrets.MONGO_URL }}" --build-arg AWS_LAMBDA_URL="https://8iwck038r4.execute-api.us-east-1.amazonaws.com/serverless_lambda_stage" -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
