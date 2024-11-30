@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
-  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+  ECR_REPOSITORY: 566795789424.dkr.ecr.us-east-1.amazonaws.com/tech-challenge-hiago/identificacao
   CONTAINER_NAME: tech-challenge-hiago/identificacao
 
 permissions:

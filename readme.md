@@ -166,18 +166,18 @@ kubectl get pods -n tech-challenge-namespace
 Abra um terminal e rode o seguinte comando:
 
 ```
-kubectl port-forward svc/nodejs-service 3000:3000 -n
+kubectl port-forward svc/nodejs-service 3001:3001 -n
 ```
 
 ### 12. As APIs estarão disponíveis nos seguintes URLs:
 
-- Cadastro de Usuário: http://localhost:3000/cadastro
-- Identificação do Cliente: http://localhost:3000/identificacao
-- Listagem de Produtos: http://localhost:3000/admin/products/:category
-- Atualização de Produto: PATCH http://localhost:3000/admin/products
-- Exclusão de Produto: DELETE http://localhost:3000/admin/products
-- Checkout de Pedido: http://localhost:3000/pedido/checkout
-- Listagem de Pedidos: http://localhost:3000/pedido
+- Cadastro de Usuário: http://localhost:3001/cadastro
+- Identificação do Cliente: http://localhost:3001/identificacao
+- Listagem de Produtos: http://localhost:3001/admin/products/:category
+- Atualização de Produto: PATCH http://localhost:3001/admin/products
+- Exclusão de Produto: DELETE http://localhost:3001/admin/products
+- Checkout de Pedido: http://localhost:3001/pedido/checkout
+- Listagem de Pedidos: http://localhost:3001/pedido
 
 ### [Opcional] 13. Caso queira checar a criação dos dados no mongo
 
@@ -248,7 +248,7 @@ docker run -d --name mongodb -p 27017:27017 mongo:latest
 npm run dev
 ```
 
-1.Acesse http://localhost:3000/api-docs
+1.Acesse http://localhost:3001/api-docs
 
 # Documentação das APIs
 
